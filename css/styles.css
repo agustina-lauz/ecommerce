@@ -188,3 +188,37 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+
+.title {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}
+
+.btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.email {
+  width: 400px;
+  margin: auto;
+ 
+}
+
+.pass {
+  max-width: 400px;
+  margin: auto;
+  
+}
