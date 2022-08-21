@@ -1,8 +1,17 @@
 
+/* 
+-Se crea una constante con la url donde vamos a acceder al json  
+*/
 const CARS_LIST = "https://japceibal.github.io/emercado-api/cats_products/101.json"
 
+/* 
+-Se crea un array vacío dónde se van a guardar los productos que se van a mostrar en el HTML 
+*/
 let productsArray = [];
 
+/* 
+-Se crea una función dónde se recorre el array trayendo la información de cada uno de los productos e insertando un div en el HTML para que se muestren 
+*/
 function showProductsList(array){
     let htmlContentToAppend = "";
 
@@ -33,21 +42,18 @@ function showProductsList(array){
 
 
 /* 
-EJECUCIÓN:
-
 -Al cargar la página se llama a getJSONData() pasándole por parámetro la dirección para obtener el listado.
--Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos en categoriesArray.
--Por último, se llama a showCategoriesList() pasándole por parámetro categoriesArray.
-
+-Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos (catId, catName, products) en productsArray.
+-En CarsArray se guarda solamente la info que está en .products.
+-Por último, se llama a showProductsList() pasándole por parámetro CarsArray.
 */
-
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(CARS_LIST).then(function(resultObj){
         if (resultObj.status === "ok")
         {
             productsArray = resultObj.data;
-            currentAutosArray = productsArray.products;
-            showProductsList(currentAutosArray);
+            CarsArray = productsArray.products;
+            showProductsList(CarsArray);
         }
     });
 });
