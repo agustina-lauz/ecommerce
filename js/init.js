@@ -40,4 +40,4 @@ let getJSONData = function(url){
     });
 }
 
-document.getElementById("user").innerHTML = localStorage.getItem("usuario");
+document.getElementById("user").innerText = localStorage.getItem("usuario");

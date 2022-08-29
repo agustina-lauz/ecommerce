@@ -1,22 +1,10 @@
-
-/* 
--Se crea una constante con la url donde vamos a acceder al json  
-*/
-const CARS_LIST = "https://japceibal.github.io/emercado-api/cats_products/101.json"
-
-/* 
--Se crea un array vacío dónde se van a guardar los productos que se van a mostrar en el HTML 
-*/
 let productsArray = [];
 
-/* 
--Se crea una función dónde se recorre el array trayendo la información de cada uno de los productos e insertando un div en el HTML para que se muestren 
-*/
-function showProductsList(array){
+function showProductsList(){
     let htmlContentToAppend = "";
 
-    for(let i = 0; i < array.length; i++){ 
-        let products = array[i];
+    for(let i = 0; i < productsArray.products.length; i++){ 
+        let products = productsArray.products[i];
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action">
             <div class="row">
@@ -36,24 +24,18 @@ function showProductsList(array){
             </div>
         </div>
         `
-        document.getElementById("cars").innerHTML = htmlContentToAppend; 
+        document.getElementById("cat-list").innerHTML = htmlContentToAppend; 
     }
 }
 
-
-/* 
--Al cargar la página se llama a getJSONData() pasándole por parámetro la dirección para obtener el listado.
--Se verifica el estado del objeto que devuelve, y, si es correcto, se cargan los datos (catId, catName, products) en productsArray.
--En CarsArray se guarda solamente la info que está en .products.
--Por último, se llama a showProductsList() pasándole por parámetro CarsArray.
-*/
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(CARS_LIST).then(function(resultObj){
+    let url= PRODUCTS_URL + localStorage.catID + EXT_TYPE;
+    getJSONData(url).then(function(resultObj){
         if (resultObj.status === "ok")
         {
             productsArray = resultObj.data;
-            CarsArray = productsArray.products;
-            showProductsList(CarsArray);
+            document.getElementById("catName").innerHTML = productsArray.catName; 
+            showProductsList();
         }
     });
 });
