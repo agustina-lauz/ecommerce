@@ -32,6 +32,11 @@ function sortProductsDescCount() {
     return 0;
   });
 }
+
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html";
+}
   
 
 function showProductsList() {
@@ -47,7 +52,7 @@ function showProductsList() {
     ) {
       htmlContentToAppend +=
         `
-        <div class="list-group-item list-group-item-action">
+        <div onclick="setProdID(${products.id})" class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
                     <img src="` + products.image +`" alt="product image" class="img-thumbnail"></div>

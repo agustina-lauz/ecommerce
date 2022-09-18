@@ -37,10 +37,40 @@
       </div>
     </div>
   </nav>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+  <main class="container-fluid">
+    <div id="prod-info-cont">
+      <div id="prod-info-container"></div>
+
+
+      <div id="prod-coment-container"></div>
+
+      <br>
+      
+      <div id="contInputComent" class="container-fluid">
+        <div>
+          <h5>Comentar</h5>
+        </div>
+        <div class="col-sm-4 ">
+          <label for="sel1" class="form-label">Tu opinión: </label>
+          <label for="comment"></label>
+          <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+        </div>
+        <br>
+        <div class="col-1">
+          <form action="/action_page.php">
+            <label for="sel1" class="form-label">Tu puntuación: </label>
+            <select class="form-select" id="sel1" name="sellist1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+        </div>
+        <br>
+
+        <button type="button" class="btn-primary" id="inputComentBtn">Enviar</button>
+
       </div>
     </div>
   </main>
