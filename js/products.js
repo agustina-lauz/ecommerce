@@ -55,14 +55,14 @@ function showProductsList() {
         <div onclick="setProdID(${products.id})" class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
-                    <img src="` + products.image +`" alt="product image" class="img-thumbnail"></div>
+                    <img src="${products.image}" alt="product image" class="img-thumbnail"></div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <div class="mb-1">
-                        <h4>` + products.name + " " + " - " + products.currency + " " + products.cost +`</h4> 
-                        <p> ` + products.description + `</p> 
+                        <h4>${products.name}  ${products.currency} ${products.cost}</h4> 
+                        <p> ${products.description}</p> 
                         </div>
-                        <small class="text-muted">` + products.soldCount + ` artículos</small> 
+                        <small class="text-muted">${products.soldCount} artículos</small> 
                     </div>
                 </div>
             </div>
@@ -104,9 +104,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
   
 
-  document
-    .getElementById("rangeFilterCost")
-    .addEventListener("click", function () {
+  document.getElementById("rangeFilterCost").addEventListener("click", function () {
       minCount = document.getElementById("rangeFilterCostMin").value;
       maxCount = document.getElementById("rangeFilterCostMax").value;
 
@@ -125,9 +123,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
       showProductsList();
     });
 
-  document
-    .getElementById("clearRangeFilterCost")
-    .addEventListener("click", function () {
+  document.getElementById("clearRangeFilterCost").addEventListener("click", function () {
       document.getElementById("rangeFilterCostMin").value = "";
       document.getElementById("rangeFilterCostMax").value = "";
 

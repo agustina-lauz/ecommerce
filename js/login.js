@@ -19,7 +19,6 @@ button.addEventListener("click", (e) => {
   if (validateData()) {
     usuarios = email.value;
     localStorage.setItem("usuario",usuarios);
-    console.log(usuarios)
     redirect();
   } else {
     showAlertError();

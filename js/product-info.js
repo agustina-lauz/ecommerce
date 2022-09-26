@@ -1,6 +1,7 @@
 let productInfoArray = [];
 let productComentsArray = [];
 
+
 function showProdInfo() {
   let htmlContentToAppend = "";
   let prodInfo = productInfoArray;
@@ -31,7 +32,7 @@ function showProdInfo() {
                           
                         }
                         `</p>
-                    
+                     </div> 
                 </div> 
             </div>
         </div> 
@@ -73,6 +74,39 @@ function showProdComent() {
  document.getElementById("prod-coment-container").innerHTML += htmlContentToAppend;
 }
 
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html";
+}
+
+
+function showProdRelated() {
+  let htmlContentToAppend = "";
+  htmlContentToAppend += `
+  <div class="list-group-item list-group-item-action" >
+  <div class="row">
+    <div class="col-6">
+        <div class="d-flex w-100 justify-content-between" id="coments">`
+          for (let i = 0; i < productInfoArray.relatedProducts.length; i++) {
+           let prodRel = productInfoArray.relatedProducts[i];
+            htmlContentToAppend += `
+            <div onclick="setProdID(${prodRel.id})" class="mb-1">
+              <p>
+               <span><img src=${prodRel.image} width="300" height="300" alt="product image" class="img-thumbnail"></span>
+               <br>
+               <h6>${prodRel.name}</h6>
+             </p>
+            </div>`;
+          }
+            `</div>
+          </div>
+       </div>
+       </div>`
+   
+  document.getElementById("prod-related-container").innerHTML += htmlContentToAppend;
+}
+
+
 document.addEventListener("DOMContentLoaded", function (e) {
   let url = PRODUCT_INFO_URL + localStorage.prodID + EXT_TYPE;
   getJSONData(url).then(function (resultObj) {
@@ -80,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
       productInfoArray = resultObj.data;
       console.log(productInfoArray);
       showProdInfo();
+      showProdRelated();
     }
   });
 
@@ -90,4 +125,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
       showProdComent();
     }
   });
+
+
+
+ 
 });

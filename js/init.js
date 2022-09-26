@@ -41,4 +41,18 @@ let getJSONData = function(url){
     });
 }
 
+function redirectCart() {
+  window.location = "cart.html";
+}
+
+function redirectProfile() {
+  window.location = "my-profile.html";
+}
+
+function signOff() {
+  localStorage.clear();
+  window.location = "index.html";
+}
+
+
 document.getElementById("user").innerText = localStorage.getItem("usuario");

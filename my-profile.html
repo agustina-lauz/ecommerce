@@ -45,7 +45,16 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-            <a href="" id="user"></a>
+            <a href="">
+              <div class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-bs-toggle="dropdown" aria-expanded="false" ></a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li><a class="dropdown-item" href="#" onclick="redirectCart()">Mi carrito</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="redirectProfile()">Mi perfil</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="signOff()">Cerrar sesión</a></li>
+                </ul>
+              </div>
+            </a>
           </li>
         </ul>
       </div>
