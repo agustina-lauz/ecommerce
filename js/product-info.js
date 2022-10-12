@@ -12,7 +12,7 @@ function showProdInfo() {
                     <div class="d-flex w-100 justify-content-between" id="coments">
                         <div class="mb-1">
                         <h1>${prodInfo.name}</h1> 
-                        <br>
+                        <hr>
                         <h5> Precio </h3>
                         <p>${prodInfo.currency} ${prodInfo.cost} </p> 
                         <br>
@@ -64,12 +64,12 @@ function showProdComent() {
       for (let x = 0; x < (5-coment.score); x++) {
         htmlContentToAppend += `<span class="fa fa-star" style="right:0px;"></span>`;
       }
-       
+      `</p>
+      </div>
+      </div>`
     
   }
-  `</p>
-  </div>
-  </div>`
+  
 
  document.getElementById("prod-coment-container").innerHTML += htmlContentToAppend;
 }
