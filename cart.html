@@ -32,7 +32,8 @@
           <li class="nav-item">
             <a href="">
               <div class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-bs-toggle="dropdown" aria-expanded="false" ></a>
+                <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false"></a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                   <li><a class="dropdown-item" href="#" onclick="redirectCart()">Mi carrito</a></li>
                   <li><a class="dropdown-item" href="#" onclick="redirectProfile()">Mi perfil</a></li>
@@ -46,9 +47,14 @@
     </div>
   </nav>
   <main>
+    <br>
+    <div class="container">
+      <h3>Carrito de compras</h3>
+    </div>
+
     <div class="container" id="cart">
       <br>
-      <h4>Carrito de compras</h4>
+      <h4>Articulos a comprar</h4>
       <table class="table">
         <thead>
           <tr>
@@ -62,56 +68,117 @@
         <tbody id="cartItems"></tbody>
         <tfoot>
           <tr id="footer">
-            
+
           </tr>
         </tfoot>
       </table>
     </div>
 
+
+
     <div class="container" id="sendData">
+      <hr>
       <br>
       <h4>Tipo de envío</h4>
       <div class="form-check">
-       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-       <label class="form-check-label" for="exampleRadios1">Premium - 2 a 5 días - (15%)</label>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="percentagePremium" value="0.15" 
+          onclick="calculateSendCost()">
+        <label class="form-check-label" for="percentagePremium">Premium 2 a 5 días - (15%)</label>
       </div>
       <div class="form-check">
-       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-       <label class="form-check-label" for="exampleRadios2">Express - 5 a 8 días - (7%)</label>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="percentageExpress" value="0.07"
+          onclick="calculateSendCost()">
+        <label class="form-check-label" for="percentageExpress">Express 5 a 8 días - (7%)</label>
       </div>
-      <div class="form-check disabled">
-       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-       <label class="form-check-label" for="exampleRadios3">Standard - 12 a 15 días - (5%)</label>
-     </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="percentageStandard" value="0.05"
+          onclick="calculateSendCost()">
+        <label class="form-check-label" for="percentageStandard">Standard 12 a 15 días - (5%)</label>
+      </div>
+      <div class="container estiloerror ps-0" id="alertShipment"></div>
 
-     <br>
+      <br>
 
-     
-      <div class="form-row">
+      <h4>Dirección de envío</h4>
+
+      <div class="form row col-12">
         <div class="form-group col-md-6">
           <label for="inputCalle">Calle</label>
-          <input type="text" class="form-control" id="inputCalle" placeholder="Calle"> 
+          <input type="text" class="form-control" id="inputCalle" placeholder="Calle" required>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
           <label for="inputNumero">Número</label>
-          <input type="text" class="form-control" id="inputNumero" placeholder="Número">
+          <input type="text" class="form-control" id="inputNumeroPuerta" placeholder="Número" required>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEsquina">Esquina</label>
-        <input type="text" class="form-control" id="inputEsquina" placeholder="Esquina">
-      </div>
-      <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputCity">Ciudad</label>
-          <input type="text" class="form-control" id="inputCity">
+          <label for="inputEsquina">Esquina</label>
+          <input type="text" class="form-control" id="inputEsquina" placeholder="Esquina" required>
         </div>
       </div>
+
       <br>
-      <button type="submit" class="btn btn-primary">Comprar</button>
-    
 
     </div>
+
+    <div class="container">
+      <hr>
+      <br>
+      <h4>Costos</h4>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div>
+            <h5>Subtotal <span id="costsSubtotal"></span></h5>
+            <p>Costo unitario de producto por candidad.</p>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div>
+            <h5>Costo de envío <span id="costsSend"></span></h5>
+            <p>Según el tipo de envío.</p>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div>
+            <h5>Total ($) <span id="costsTotal"></span></h5>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+
+    <br>
+
+    <div class="container">
+      <hr>
+      <br>
+      <h4>Forma de pago</h4>
+      <div class="row col-6">
+        <div class="col-4">
+          <p id="selection">No se ha seleccionado.</p>
+        </div>
+        <div class="col-2">
+          <button id='botonpago' type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalPagos">Seleccionar</button>
+        </div>
+      </div>
+    
+      <div class='estiloerror ps-0 col-6' id="alertPayMethod"></div>
+
+    </div>
+
+    
+
+    <br>
+    <br>
+
+    <div class="container">
+      <button type="submit" class="btn btn-primary col-12" id="btnCheckout">Finalizar compra</button>
+    </div>
+
+    <div class="alert alert-success" role="alert" style="display: none;" id="alertSuccess">
+      <p>¡Has comprado con éxito!</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    </div>
+
 
   </main>
   <footer class="text-muted">
@@ -124,17 +191,73 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
+
+ 
+
+  <div class="modal fade" id="modalPagos" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Forma de pago</h1>
+        </div>
+        <div class="modal-body">
+          <div class="form-check" id="formBankTransfer">
+            <input class="form-check-input" type="radio" name="paymentMethodCheck" id="checkTransfer">
+            <label class="form-check-label" for="flexRadioDefault1">Transferencia bancaria</label>
+            <hr>
+            <div class="row col-12">
+              <div class="col-md-8">
+                <label for="inputCuenta">Número de cuenta</label>
+                <input type="number" class="form-control transfer" id="inputCuenta" placeholder="Number">
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-check" id="formCreditCard">
+            <input class="form-check-input" type="radio" name="paymentMethodCheck" id="checkCard">
+            <label class="form-check-label" for="exampleRadios2">Tarjeta de crédito</label>
+            <hr>
+            <div class="row col-12">
+              <div class="col-md-8">
+                <label for="inputCard">Número de tarjeta</label>
+                <input type="number" class="form-control" id="inputCard" placeholder="Number" maxlength="16">
+              </div>
+              <div class="col-md-4">
+                <label for="inputCvv">Código de seg.</label>
+                <input type="number" class="form-control" id="inputCvv" placeholder="CVV" maxlength="3">
+              </div>
+            </div>
+            <br>
+            <div class="col-md-6">
+              <label for="inputExpiration">Vencimiento</label>
+              <input type="month" class="form-control" id="inputExpiration" placeholder="">
+            </div>
+          </div>
+          <br>
+          <div class="modal-footer">
+            <div class="">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="spinner-wrapper">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/init.js"></script>
+      <script src="js/cart.js"></script>
+
+     
 </body>
+
+
 
 </html>
