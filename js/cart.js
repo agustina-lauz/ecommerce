@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     validaShipment();
     validarAddress();
     validaPayMethod();
+    if (validaShipment() && validaPayMethod() && validarAddress())
+    showAlert();
+
   });
 });
 
@@ -67,7 +70,7 @@ function selectPayMethod() {
     expirationDate.setAttribute("disabled", " ");
     bankAccount.removeAttribute("disabled", " ");
     document.getElementById("selection").innerHTML = `Transferencia bancaria.`;
-    document.getElementById("alertPayMethod").remove();
+    document.getElementById("alertPayMethod").innerHTML = ``;
     return true;
   } else if (checkCard.checked) {
     cardNumber.removeAttribute("disabled");
@@ -75,7 +78,7 @@ function selectPayMethod() {
     expirationDate.removeAttribute("disabled");
     bankAccount.setAttribute("disabled", " ");
     document.getElementById("selection").innerHTML = `Tarjeta de crédito.`;
-    document.getElementById("alertPayMethod").remove();
+    document.getElementById("alertPayMethod").innerHTML = ``;
     return true;
   } else {
     cardNumber.removeAttribute("disabled");
@@ -95,40 +98,51 @@ function validarAddress() {
     street.classList.add("is-invalid");
   } else {
     street.classList.remove("is-invalid");
+    return true;
   }
   if (numberStreet.value.length < 1) {
     numberStreet.classList.add("is-invalid");
   } else {
     numberStreet.classList.remove("is-invalid");
+    return true;
   }
   if (corner.value.length < 1) {
     corner.classList.add("is-invalid");
   } else {
     corner.classList.remove("is-invalid");
+    return true;
   }
+
+  
 }
 
 function validaPayMethod() {
   if (!checkCard.checked && !checkTransfer.checked) {
     document.getElementById("alertPayMethod").innerHTML =
      `<p style='vertical-align: middle; padding: .375rem .75rem; margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
+     return false;
   } else if (
-    (checkCard.checked && card.value < 1 && expiration.value > 0 && cvv.value > 0) ||
-    (checkCard.checked && card.value > 0 && expiration.value < 1 && cvv.value > 0) ||
-    (checkCard.checked && card.value > 0 && expiration.value > 0 && cvv.value < 1) ||
-    (checkCard.checked && card.value < 1 && expiration.value < 1 && cvv.value < 1) ) {
+    (checkCard.checked && card.value.length < 1 && expiration.value.length > 0 && cvv.value.length > 0) ||
+    (checkCard.checked && card.value.length > 0 && expiration.value.length < 1 && cvv.value.length > 0) ||
+    (checkCard.checked && card.value.length > 0 && expiration.value.length > 0 && cvv.value.length < 1) ||
+    (checkCard.checked && card.value.length < 1 && expiration.value.length < 1 && cvv.value.length < 1) ) {
     card.classList.add("is-invalid");
     expiration.classList.add("is-invalid");
     cvv.classList.add("is-invalid");
     document.getElementById("alertPayMethod").innerHTML = 
     `<p style='vertical-align: middle; padding: .375rem .75rem; margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
-
-
-  } else if (checkTransfer.checked && account.value < 1) {
+    return false;
+  } else if (checkTransfer.checked && account.value.lenght < 1) {
     account.classList.add("is-invalid");
     document.getElementById("alertPayMethod").innerHTML = 
     `<p style='vertical-align: middle; padding: .375rem .75rem; margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
-  } 
+    return false;
+  } else {
+    document.getElementById("alertPayMethod").innerHTML = ``;
+    return true;
+  }
+
+  
 }
 
 function validaShipment() {
@@ -136,14 +150,18 @@ function validaShipment() {
   let express = document.getElementById("percentageExpress");
   let standard = document.getElementById("percentageStandard");
   if (premium.checked || standard.checked || express.checked) {
-    document.getElementById("alertShipment").remove();
+    document.getElementById("alertShipment").innerHTML = ``;
+    return true;  
   } else {
     document.getElementById(
       "alertShipment"
     ).innerHTML = `<p style='vertical-align: middle;
     padding: .375rem .75rem;
     margin-left: 20px;'> Debe seleccionar un tipo de envío.</p> `;
+    return false;
   }
+
+  
 }
 
 function calculateSubtotal() {
@@ -175,4 +193,8 @@ function calculateTotal() {
     let sumaTotalStandard = parseInt(subtotal) + parseInt(envioStandard);
     document.getElementById("costsTotal").innerHTML = `USD ${sumaTotalStandard}`;
   }
+}
+
+function showAlert(){
+  swal("", "Has comprado con éxito!", "success");
 }
