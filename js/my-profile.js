@@ -33,7 +33,6 @@ function validateDataProfile() {
     firstLastname.value.length < 1 &&
     email.value.length < 1
   ) {
-    firstName.classList.remove("is-invalid");
     firstLastname.classList.add("is-invalid");
     email.classList.add("is-invalid");
   } else if (
@@ -41,25 +40,21 @@ function validateDataProfile() {
     firstLastname.value.length > 0 &&
     email.value.length < 1
   ) {
-    firstName.classList.remove("is-invalid");
-    firstLastname.classList.remove("is-invalid");
     email.classList.add("is-invalid");
   } else if (
     firstName.value.length > 0 &&
     firstLastname.value.length < 1 &&
     email.value.length > 0
   ) {
-    firstName.classList.add("is-invalid");
-    firstLastname.classList.remove("is-invalid");
-    email.classList.add("is-invalid");
+    firstLastname.classList.add("is-invalid");
   } else if (
     firstName.value.length < 1 &&
     firstLastname.value.length < 1 &&
     email.value.length > 0
   ) {
-    firstName.classList.remove("is-invalid");
-    firstLastname.classList.remove("is-invalid");
-    email.classList.add("is-invalid");
+    firstName.classList.add("is-invalid");
+    firstLastname.classList.add("is-invalid");
+    
   } else {
     firstName.classList.remove("is-invalid");
     firstLastname.classList.remove("is-invalid");
