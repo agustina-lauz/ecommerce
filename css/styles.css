@@ -236,4 +236,12 @@ input[type=number] { -moz-appearance:textfield; }
  
 }
 
+#picPerfil {
+  width: 80px;
+  height: 80px;
+  border-style: solid;
+  border-color: whitesmoke;
+  border-width: 2px;
+}
+
 

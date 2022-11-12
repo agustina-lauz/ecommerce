@@ -54,5 +54,20 @@ function signOff() {
   window.location = "index.html";
 }
 
+function refreshProfile(){
+  
+  let userProfile = JSON.parse(localStorage.getItem("profile"));
+
+  document.getElementById("fName").value = userProfile.first_name;
+  document.getElementById("sName").value = userProfile.second_name;
+  document.getElementById("fLastname").value = userProfile.first_lastname;
+  document.getElementById("sLastname").value = userProfile.second_lastname;
+  document.getElementById("pEmail").value = userProfile.email;
+  document.getElementById("phone").value = userProfile.phone;
+  document.getElementById("picPerfil").setAttribute("src", localStorage.getItem("profile", userProfile.inputPhoto)); 
+}
 
 document.getElementById("user").innerText = localStorage.getItem("usuario");
+document.getElementById("pEmail").value = localStorage.getItem("usuario");
+
+refreshProfile();

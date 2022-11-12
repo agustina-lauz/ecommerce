@@ -1,8 +1,13 @@
 let userID = 25801;
 let currentCart = [];
+let card = document.getElementById("inputCard");
+let expiration = document.getElementById("inputExpiration");
+let cvv = document.getElementById("inputCvv");
+let account = document.getElementById("inputCuenta");
 let checkTransfer = document.getElementById("checkTransfer");
 let checkCard = document.getElementById("checkCard");
 let btnCheckout = document.getElementById("btnCheckout");
+
 
 document.addEventListener("DOMContentLoaded", function (e) {
   let url = CART_INFO_URL + userID + EXT_TYPE;
@@ -26,12 +31,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
     validaShipment();
     validarAddress();
     validaPayMethod();
-  
-    if (validaShipment() && validarAddress() && validaPayMethod()){
-      showAlert();
-    }
-
-
   });
 });
 
@@ -40,13 +39,13 @@ function showCartList() {
   for (let i = 0; i < currentCart.articles.length; i++) {
     let buyProducts = currentCart.articles[i];
     cost = parseInt(buyProducts.unitCost * buyProducts.count);
-    sendCost = parseInt(buyProducts.unitCost * 0.15);
+    sendCost = 0;
     htmlContentToAppend += `
         <tr>
           <td><img src="${buyProducts.image}" alt="productImage" width="75" height="50"></td>
           <td>${buyProducts.name}</td>
           <td>${buyProducts.currency}<span id="bpCost"> ${buyProducts.unitCost}</span></td>
-          <td><input id="count" oninput=calculateSubtotal(); type="number" min="1" style="width:50px;" text-align:center;" value="${buyProducts.count}"></td>
+          <td><input id="count" oninput="calculateSubtotal(),calculateTotal()"; type="number" min="1" style="width:50px;" text-align:center;" value="${buyProducts.count}"></td>
           <td>${buyProducts.currency} <span id="subtotal">${cost}</span></td>
         </tr>
         `;
@@ -83,7 +82,7 @@ function selectPayMethod() {
     cvvNumber.removeAttribute("disabled");
     expirationDate.removeAttribute("disabled");
     bankAccount.removeAttribute("disabled");
-    return true;
+    return false;
   }
 }
 
@@ -111,12 +110,25 @@ function validarAddress() {
 
 function validaPayMethod() {
   if (!checkCard.checked && !checkTransfer.checked) {
-    document.getElementById(
-      "alertPayMethod"
-    ).innerHTML = `<p style='vertical-align: middle;
-    padding: .375rem .75rem;
-    margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
-  }
+    document.getElementById("alertPayMethod").innerHTML =
+     `<p style='vertical-align: middle; padding: .375rem .75rem; margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
+  } else if (
+    (checkCard.checked && card.value < 1 && expiration.value > 0 && cvv.value > 0) ||
+    (checkCard.checked && card.value > 0 && expiration.value < 1 && cvv.value > 0) ||
+    (checkCard.checked && card.value > 0 && expiration.value > 0 && cvv.value < 1) ||
+    (checkCard.checked && card.value < 1 && expiration.value < 1 && cvv.value < 1) ) {
+    card.classList.add("is-invalid");
+    expiration.classList.add("is-invalid");
+    cvv.classList.add("is-invalid");
+    document.getElementById("alertPayMethod").innerHTML = 
+    `<p style='vertical-align: middle; padding: .375rem .75rem; margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
+
+
+  } else if (checkTransfer.checked && account.value < 1) {
+    account.classList.add("is-invalid");
+    document.getElementById("alertPayMethod").innerHTML = 
+    `<p style='vertical-align: middle; padding: .375rem .75rem; margin-left: 20px;'> Debe seleccionar un método de pago.</p> `;
+  } 
 }
 
 function validaShipment() {
@@ -134,25 +146,33 @@ function validaShipment() {
   }
 }
 
-function showAlert() {
-  document.getElementById("alertSuccess").removeAttribute("style");
-}
-
 function calculateSubtotal() {
   let cantidad = document.getElementById("count").value;
   let costo = document.getElementById("bpCost").innerHTML;
-
   let result = parseInt(cantidad * costo);
-
   document.getElementById("subtotal").innerHTML = `${result}`;
   document.getElementById("costsSubtotal").innerHTML = `${result}`;
 }
 
 function calculateTotal() {
-  let send = document.getElementById("costsSend").innerHTML;
-  let sub = document.getElementById("subtotal").innerHTML;
-
-  let resultTotal = parseInt(send) + parseInt(sub);
-
-  document.getElementById("costsTotal").innerHTML = `${resultTotal}`;
+  let subtotal = document.getElementById("costsSubtotal").innerHTML;
+  let premium = document.getElementById("percentagePremium");
+  let express = document.getElementById("percentageExpress");
+  let standard = document.getElementById("percentageStandard");
+  if (premium.checked == true) {
+    let envioPremium = parseInt(subtotal * premium.value);
+    document.getElementById("costsSend").innerHTML = `USD ${envioPremium}` ;
+    let sumaTotalPremium = parseInt(subtotal) + parseInt(envioPremium);
+    document.getElementById("costsTotal").innerHTML = `USD ${sumaTotalPremium}`;
+  } else if (express.checked == true) {
+    let envioExpress = parseInt(subtotal * express.value);
+    document.getElementById("costsSend").innerHTML = `USD ${envioExpress}`;
+    let sumaTotalExpress = parseInt(subtotal) + parseInt(envioExpress);
+    document.getElementById("costsTotal").innerHTML = `USD ${sumaTotalExpress}`;
+  } else if (standard.checked == true) {
+    let envioStandard = parseInt(subtotal * standard.value);
+    document.getElementById("costsSend").innerHTML = `USD ${envioStandard}`;
+    let sumaTotalStandard = parseInt(subtotal) + parseInt(envioStandard);
+    document.getElementById("costsTotal").innerHTML = `USD ${sumaTotalStandard}`;
+  }
 }

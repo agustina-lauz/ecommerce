@@ -47,7 +47,8 @@
           <li class="nav-item">
             <a href="">
               <div class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-bs-toggle="dropdown" aria-expanded="false" ></a>
+                <a class="nav-link dropdown-toggle" href="#" id="user" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false"></a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                   <li><a class="dropdown-item" href="#" onclick="redirectCart()">Mi carrito</a></li>
                   <li><a class="dropdown-item" href="#" onclick="redirectProfile()">Mi perfil</a></li>
@@ -61,10 +62,56 @@
     </div>
   </nav>
   <main>
+    <br>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <h3>Perfil</h3>
+  
+      
+    </div>
+
+
+
+    <div class="container">
+      <br>
+      <hr>
+      <div class="row col-12">
+        <div class="col-5">
+          <h6>Primer nombre*</h6>
+          <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="fName">
+        </div>
+        <div class="col-5">
+          <h6>Segundo nombre</h6>
+          <input type="text" class="form-control" placeholder="Second name" aria-label="Second name" id="sName">
+        </div>
       </div>
+      <br>
+      <div class="row col-12">
+        <div class="col-5">
+          <h6>Primer apellido*</h6>
+          <input type="text" class="form-control" placeholder="First lastname" aria-label="First lastname" id="fLastname">
+        </div>
+        <div class="col-5">
+          <h6>Segundo apellido</h6>
+          <input type="text" class="form-control" placeholder="Second lastname" aria-label="Second lastname" id="sLastname">
+        </div>
+      </div>
+      <br>
+      <div class="row col-12">
+        <div class="col-5">
+          <h6>Email*</h6>
+          <input type="email" class="form-control" placeholder="Email" aria-label="Email" id="pEmail">
+        </div>
+        <div class="col-5">
+          <h6>Teléfono</h6>
+          <input type="number" class="form-control" placeholder="Teléfono" aria-label="Teléfono" id="phone">
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div class="container">
+      <hr>
+      <button type="submit" class="btn btn-primary" id="btnSave">Guardar cambios</button>
     </div>
   </main>
   <footer class="text-muted">

@@ -82,17 +82,17 @@
       <h4>Tipo de envío</h4>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="exampleRadios" id="percentagePremium" value="0.15" 
-          onclick="calculateSendCost()">
+          oninput="calculateTotal()">
         <label class="form-check-label" for="percentagePremium">Premium 2 a 5 días - (15%)</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="exampleRadios" id="percentageExpress" value="0.07"
-          onclick="calculateSendCost()">
+        onclick="calculateTotal()">
         <label class="form-check-label" for="percentageExpress">Express 5 a 8 días - (7%)</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="exampleRadios" id="percentageStandard" value="0.05"
-          onclick="calculateSendCost()">
+        onclick="calculateTotal()">
         <label class="form-check-label" for="percentageStandard">Standard 12 a 15 días - (5%)</label>
       </div>
       <div class="container estiloerror ps-0" id="alertShipment"></div>
@@ -124,22 +124,22 @@
       <hr>
       <br>
       <h4>Costos</h4>
-      <ul class="list-group">
+      <ul class="list-group"> 
         <li class="list-group-item">
           <div>
-            <h5>Subtotal <span id="costsSubtotal"></span></h5>
+            <h5>Subtotal <span style="float: right;">USD <span id="costsSubtotal" style="float: right;"></span></span></h5>
             <p>Costo unitario de producto por candidad.</p>
           </div>
         </li>
         <li class="list-group-item">
           <div>
-            <h5>Costo de envío <span id="costsSend"></span></h5>
-            <p>Según el tipo de envío.</p>
+            <h5>Costo de envío <span style="float: right;" id="costsSend"></span> </h5>
+            <p>Según el tipo de envío. </p>
           </div>
         </li>
         <li class="list-group-item">
           <div>
-            <h5>Total ($) <span id="costsTotal"></span></h5>
+            <h5>Total ($) <span id="costsTotal" style="float: right;"></span></h5>
           </div>
         </li>
 
@@ -174,11 +174,6 @@
       <button type="submit" class="btn btn-primary col-12" id="btnCheckout">Finalizar compra</button>
     </div>
 
-    <div class="alert alert-success" role="alert" style="display: none;" id="alertSuccess">
-      <p>¡Has comprado con éxito!</p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    </div>
-
 
   </main>
   <footer class="text-muted">
@@ -194,7 +189,7 @@
 
  
 
-  <div class="modal fade" id="modalPagos" tabindex="-1" aria-hidden="true">
+  <div class="modal fade was-validated" id="modalPagos" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -220,17 +215,17 @@
             <div class="row col-12">
               <div class="col-md-8">
                 <label for="inputCard">Número de tarjeta</label>
-                <input type="number" class="form-control" id="inputCard" placeholder="Number" maxlength="16">
+                <input type="number" class="form-control" id="inputCard" placeholder="Number" minlength="16" maxlength="16">
               </div>
               <div class="col-md-4">
                 <label for="inputCvv">Código de seg.</label>
-                <input type="number" class="form-control" id="inputCvv" placeholder="CVV" maxlength="3">
+                <input type="number" class="form-control" id="inputCvv" placeholder="CVV" minlength="3" maxlength="3">
               </div>
             </div>
             <br>
             <div class="col-md-6">
               <label for="inputExpiration">Vencimiento</label>
-              <input type="month" class="form-control" id="inputExpiration" placeholder="">
+              <input type="month" class="form-control" id="inputExpiration" placeholder="Expiration">
             </div>
           </div>
           <br>
